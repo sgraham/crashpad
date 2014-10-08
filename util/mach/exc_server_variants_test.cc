@@ -27,11 +27,14 @@
 #include "util/test/mac/mach_errors.h"
 #include "util/test/mac/mach_multiprocess.h"
 
+namespace crashpad {
+namespace test {
 namespace {
 
-using namespace crashpad;
-using namespace crashpad::test;
-using namespace testing;
+using testing::DefaultValue;
+using testing::Eq;
+using testing::Pointee;
+using testing::Return;
 
 // Fake Mach ports. These aren’t used as ports in these tests, they’re just used
 // as cookies to make sure that the correct values get passed to the correct
@@ -1114,7 +1117,7 @@ TEST(ExcServerVariants, ExcCrashRecoverOriginalException) {
 
   // Now make sure that ExcCrashRecoverOriginalException() properly ignores
   // optional arguments.
-  COMPILE_ASSERT(arraysize(kTestData) >= 1, must_have_something_to_test);
+  static_assert(arraysize(kTestData) >= 1, "must have something to test");
   const TestData& test_data = kTestData[0];
   EXPECT_EQ(test_data.exception,
             ExcCrashRecoverOriginalException(test_data.code_0, NULL, NULL));
@@ -1169,3 +1172,5 @@ TEST(ExcServerVariants, ExcServerSuccessfulReturnValue) {
 }
 
 }  // namespace
+}  // namespace test
+}  // namespace crashpad

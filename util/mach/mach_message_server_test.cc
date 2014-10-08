@@ -25,10 +25,9 @@
 #include "util/test/mac/mach_errors.h"
 #include "util/test/mac/mach_multiprocess.h"
 
+namespace crashpad {
+namespace test {
 namespace {
-
-using namespace crashpad;
-using namespace crashpad::test;
 
 class TestMachMessageServer : public MachMessageServer::Interface,
                               public MachMultiprocess {
@@ -696,8 +695,8 @@ TEST(MachMessageServer, PersistentNonblockingFourMessages) {
   // child_wait_for_parent_pipe_early is used to make the child wait until the
   // parent is ready.
   const size_t kTransactionCount = 4;
-  COMPILE_ASSERT(kTransactionCount <= MACH_PORT_QLIMIT_DEFAULT,
-                 must_not_exceed_queue_limit);
+  static_assert(kTransactionCount <= MACH_PORT_QLIMIT_DEFAULT,
+                "must not exceed queue limit");
 
   TestMachMessageServer::Options options;
   options.parent_wait_for_child_pipe = true;
@@ -845,3 +844,5 @@ TEST(MachMessageServer, LargeExpected) {
 }
 
 }  // namespace
+}  // namespace test
+}  // namespace crashpad

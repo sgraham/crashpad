@@ -22,6 +22,7 @@
         'client/client.gyp:*',
         'compat/compat.gyp:*',
         'minidump/minidump.gyp:*',
+        'snapshot/snapshot.gyp:*',
         'tools/tools.gyp:*',
         'util/util.gyp:*',
       ],

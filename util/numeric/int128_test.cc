@@ -14,11 +14,12 @@
 
 #include "util/numeric/int128.h"
 
+#include "base/basictypes.h"
 #include "gtest/gtest.h"
 
+namespace crashpad {
+namespace test {
 namespace {
-
-using namespace crashpad;
 
 TEST(Int128, UInt128) {
 #if defined(ARCH_CPU_LITTLE_ENDIAN)
@@ -30,7 +31,7 @@ TEST(Int128, UInt128) {
 #endif
 
   uint128_struct uint128;
-  COMPILE_ASSERT(sizeof(uint128) == sizeof(kBytes), sizes_must_be_equal);
+  static_assert(sizeof(uint128) == sizeof(kBytes), "sizes must be equal");
 
   uint128 = bit_cast<uint128_struct>(kBytes);
 
@@ -39,3 +40,5 @@ TEST(Int128, UInt128) {
 }
 
 }  // namespace
+}  // namespace test
+}  // namespace crashpad
